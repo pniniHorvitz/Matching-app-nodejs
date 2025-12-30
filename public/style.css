@@ -1,0 +1,189 @@
+/* --- הגדרות בסיס --- */
+body {
+    direction: rtl;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+/* --- הגדרת מעבר גלובלי (Transition) יוקרתי --- */
+/* שימוש ב-Cubic-Bezier לתנועה חלקה וטבעית יותר */
+.bg-white, 
+.bg-slate-50, 
+button, 
+input, 
+#admin-donors-list > div {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* --- אפקט ריחוף (Hover) סטייליסטי לכרטיסים (ללא מסגרת כחולה) --- */
+.bg-white:hover, 
+#admin-donors-list > div:hover {
+    transform: translateY(-6px); /* תזוזה עדינה למעלה */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.02); /* צל עמוק ורך */
+    background-color: #ffffff;
+    border-color: #e2e8f0; /* שינוי גוון אפור עדין מאוד */
+}
+
+/* אפקט לכרטיסי הקבוצות (אפורים) */
+.bg-slate-50:hover {
+    background-color: #f1f5f9;
+    transform: scale(1.01); /* הגדלה כמעט בלתי מורגשת */
+}
+
+/* --- עיצוב כפתורים אינטראקטיביים --- */
+button {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+}
+
+/* --- פאנל ניהול (Admin Panel) --- */
+#admin-panel {
+    backdrop-filter: blur(6px); /* טשטוש רקע יוקרתי */
+    transition: all 0.5s ease;
+}
+
+#admin-panel > div {
+    border-radius: 24px;
+    border: none;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: modalSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.admin-nav-btn.active {
+    background-color: #2563eb;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* --- טופס הוספה צף (Dashed) --- */
+#add-donor-form {
+    border: 2px dashed #cbd5e1;
+    background-color: #f8fafc;
+    border-radius: 16px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- אפקט "ברק" (Shine) על פסי התקדמות --- */
+.bg-blue-400, .bg-blue-500, .bg-green-500 {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-blue-400::after, .bg-blue-500::after, .bg-green-500::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.3), 
+        transparent
+    );
+    animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+    to { left: 150%; }
+}
+
+/* --- שדות קלט (Inputs) --- */
+input:focus {
+    outline: none;
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.1);
+    transform: translateY(-1px);
+}
+
+/* --- סרגל גלילה (Scrollbar) מעוצב --- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+#admin-donors-list {
+    scrollbar-width: thin;
+    padding-left: 5px; /* מניעת קפיצה בזמן גלילה */
+}
+/* אפקט ריחוף עדין לכותרת הראשית */
+#campaign-title {
+    display: inline-block; /* מאפשר תנועה חלקה */
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: default;
+    background: linear-gradient(90deg, #1e293b, #334155); /* גרדיאנט כהה יוקרתי */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
+}
+
+#campaign-title:hover {
+    transform: scale(1.03) translateY(-2px); /* הגדלה כמעט בלתי מורגשת ותזוזה למעלה */
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); /* הוספת עומק */
+    letter-spacing: 1px; /* פתיחה עדינה של הרווח בין האותיות */
+}
+
+/* כניסה חלקה של הכותרת בטעינת הדף */
+#campaign-title {
+    animation: titleFadeIn 1s ease-out;
+}
+
+@keyframes titleFadeIn {
+    from { opacity: 0; transform: translateY(-10px); filter: blur(5px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+/* תנועה לאזור הנתונים (הסכום שנאסף, היעד וכו') */
+#current-amount, #target-amount, #donors-count, #days-left {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#current-amount:hover, #target-amount:hover, #donors-count:hover, #days-left:hover {
+    transform: scale(1.1); /* הדגשה של הנתון */
+    color: #2563eb; /* שינוי גוון עדין לכחול מותג */
+}
+.groups-list > div {
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.groups-list > div:hover {
+    background: #ffffff;
+    border-color: #f1f5f9;
+    transform: scale(1.02) rotate(0.5deg); /* סיבוב כמעט בלתי מורגש שנותן תחושה דינמית */
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.02);
+}
